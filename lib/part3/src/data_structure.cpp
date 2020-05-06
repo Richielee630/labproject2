@@ -100,11 +100,7 @@ void data_structure::sort() {
 
 std::istream &operator>>(std::istream &stream, data_structure &structure) {
     std::string input_string;
-    char buffer[4096];
-    while(stream.read(buffer,sizeof(buffer))){
-        input_string.append(buffer,sizeof(buffer));
-    }
-    std::cout << input_string << std::endl;
+    stream >> input_string;
     data_structure::node *find = structure.head->next;
     structure.head->next = nullptr;
     while(find){
