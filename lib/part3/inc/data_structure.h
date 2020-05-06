@@ -6,7 +6,15 @@
 class data_structure
 {
 private:
-
+    typedef struct node{
+        int value;
+        unsigned int count;
+        node* next;
+        node(int v, unsigned int c):value(v),count(c),next(nullptr){}
+    }node;
+    node* head;
+    node* findnode(int value);
+    node* findprev(node *find);
 public:
     data_structure();  // Default constructor
     explicit data_structure(std::string input_string); // String constructor
