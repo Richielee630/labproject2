@@ -62,16 +62,30 @@ char score_board(std::vector<char> board){
 }
 
 // You write this test case.
-TEST(Part1, Test1){
-    EXPECT_TRUE(true);
+TEST(Part1, Test1) {
+    std::vector<char>
+            board1{'O', 'X', 'O',
+                   'O', 'X', 'X',
+                   'X', 'O', 'O'};
+    score_board(board1);
+    EXPECT_TRUE(valid_board(board1));
 }
-
 // You write this test case.
 TEST(Part1, Test2){
-    EXPECT_TRUE(true);
+    std::vector<char>
+            board2{'X', 'X', 'O',
+                   'O', 'O', 'X',
+                   'X', 'O', 'X'};
+    score_board(board2);
+    EXPECT_TRUE(valid_board(board2));
 }
 
 // You write this test case.
 TEST(Part1, Test3){
-    EXPECT_TRUE(true);
+    std::vector<char>
+            board3{'X', 'O', 'O',
+                   'X', 'O', 'O',
+                   'X', 'X', 'X'};
+    score_board(board3);
+    EXPECT_TRUE(valid_board(board3));
 }

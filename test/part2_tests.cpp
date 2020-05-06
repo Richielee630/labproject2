@@ -61,7 +61,7 @@ TEST(Part2, big_tests) {
     delete calculator_UT;
 }
 
-TEST(Part2, DISABLED_factorial_simple){
+TEST(Part2, factorial_simple){
     part2::calculator* calculator_UT;
     std::string input = "5 !";
     calculator_UT = new part2::calculator(input);
@@ -80,7 +80,7 @@ TEST(Part2, DISABLED_factorial_simple){
     delete calculator_UT;
 }
 
-TEST(Part2, DISABLED_factorial_complicated){
+TEST(Part2, factorial_complicated){
     part2::calculator* calculator_UT;
     std::string input = "( 2 + 1 ) ! - 4";
     calculator_UT = new part2::calculator(input);

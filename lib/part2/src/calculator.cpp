@@ -4,7 +4,7 @@
 #include <vector>
 #include <iterator>
 #include <math.h>
-
+#include <iostream>
 bool is_number(std::string input_string);
 bool is_operator(std::string input_string);
 int operator_priority(std::string operator_in);
@@ -44,11 +44,15 @@ void part2::calculator::convert_to_postfix() {
 
         if(is_number(current_token)) postfix_expression.enque(current_token);
         else if (is_operator(current_token)){
-            while (!op_stack.is_empty() && operator_priority(op_stack.top()) >= operator_priority(current_token) && op_stack.top() != "(") {
-                postfix_expression.enque(op_stack.top());
-                op_stack.pop();
+            if(current_token == "!"){
+                postfix_expression.enque(current_token);
+            }else{
+                while (!op_stack.is_empty() && operator_priority(op_stack.top()) >= operator_priority(current_token) && op_stack.top() != "(") {
+                    postfix_expression.enque(op_stack.top());
+                    op_stack.pop();
+                }
+                op_stack.push(current_token);
             }
-            op_stack.push(current_token);
         }
         else if(current_token == "(")
             op_stack.push(current_token);
@@ -94,14 +98,19 @@ int part2::calculator::calculate() {
         }
         op = calc_queue.front();
         calc_queue.deque();
-
-        right = stoi(calc_stack.top());
-        calc_stack.pop();
-        left = stoi(calc_stack.top());
-        calc_stack.pop();
-
+        if (op == "!") {
+            right = stoi(calc_stack.top());
+            calc_stack.pop();
+            left = 0;
+        }else{
+            right = stoi(calc_stack.top());
+            calc_stack.pop();
+            left = stoi(calc_stack.top());
+            calc_stack.pop();
+        }
         std::string result = std::to_string(calc_binary_operation(left, right, op));
         calc_stack.push(result);
+
     }
     return stoi(calc_stack.top());
 }
@@ -128,13 +137,15 @@ bool is_number(std::string input_string){
 
 bool is_operator(std::string input_string){
     std::string::iterator location = input_string.begin();
-    if(*location == '+' || *location == '*' || *location == '/' || *location == '^') return true;
+    if(*location == '+' || *location == '*' || *location == '/' || *location == '^' || *location == '!') return true;
     return (*location == '-' && (location+1) == input_string.end());
 }
 
 int operator_priority(std::string operator_in){
     std::string::iterator location = operator_in.begin();
     switch (*location){
+//add
+        case '!': return 5;
         case '^': return 4;
         case '*': return 3;
         case '/': return 3;
@@ -144,10 +155,17 @@ int operator_priority(std::string operator_in){
     }
 }
 
+int factorial(int value){
+    if(value == 1 || value == 0){
+        return 1;
+    }
+    return factorial(value-1)*value;
+}
 
 int calc_binary_operation(int lhs, int rhs, std::string op){
     std::string::iterator op_iter = op.begin();
     switch (*op_iter){
+        case '!': return factorial(rhs);
         case '^': return (int)pow(lhs, rhs);
         case '*': return lhs * rhs;
         case '/': return lhs / rhs;
