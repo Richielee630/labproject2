@@ -64,11 +64,12 @@ char score_board(std::vector<char> board){
 // You write this test case.
 TEST(Part1, Test1) {
     std::vector<char>
-            board1{'O', 'X', 'O',
+            board1{'O', 'X', 'X',
                    'O', 'X', 'X',
                    'X', 'O', 'O'};
     score_board(board1);
     EXPECT_TRUE(valid_board(board1));
+    EXPECT_EQ('X', score_board(board1));
 }
 // You write this test case.
 TEST(Part1, Test2){
@@ -78,6 +79,7 @@ TEST(Part1, Test2){
                    'X', 'O', 'X'};
     score_board(board2);
     EXPECT_TRUE(valid_board(board2));
+    EXPECT_EQ('D', score_board(board2));
 }
 
 // You write this test case.
@@ -85,7 +87,8 @@ TEST(Part1, Test3){
     std::vector<char>
             board3{'X', 'O', 'O',
                    'X', 'O', 'O',
-                   'X', 'X', 'X'};
+                   'O', 'X', 'X'};
     score_board(board3);
     EXPECT_TRUE(valid_board(board3));
+    EXPECT_EQ('O', score_board(board3));
 }
