@@ -3,11 +3,9 @@
 #include <sstream>
 #include <iostream>
 data_structure::data_structure():head(new node(0,0)) {
-    // Default constructor: Generate an empty data structure
 }
 
 data_structure::data_structure(std::string input_string):head(new node(0,0)) {
-    // String constructor: Construct a data structure and store the input string into it
     size_t pos = 0;
     size_t pre = 0;
     while(pos <= input_string.length()){
@@ -44,7 +42,6 @@ data_structure::data_structure(std::string input_string):head(new node(0,0)) {
 }
 
 data_structure::~data_structure() {
-    // Default Destructor: Deconstruct the data structure
     node *next = head;
     while(next){
         node *cur = next->next;
@@ -76,14 +73,12 @@ data_structure::node* data_structure::findprev(node *find){
 }
 
 unsigned int data_structure::frequency(int input_character) {
-    // Return the number of times the integer is in the data structure.
     node *find = findnode(input_character);
     if(find) return find->count;
     return 0;
 }
 
 int data_structure::most_frequent() {
-    // Return the most frequent number in the data structure. If there is more than one, return the highest value
     node* find = head->next;
     if(find) return find->value;
     return 0;
@@ -91,7 +86,6 @@ int data_structure::most_frequent() {
 }
 
 int data_structure::least_frequent() {
-    // Return the least frequent number in the data structure. If there is more than one, return the lowest value
     node* find = head->next;
     while(find && find->next){
         find = find->next;
@@ -101,13 +95,10 @@ int data_structure::least_frequent() {
 }
 
 void data_structure::sort() {
-    // Sort the data structure first by frequency, greatest to least and then by value, least to greatest.
-    // Example: 1:3,42:4,17:3,11:1,46:1,3:2         sorted: 42:4,1:3,17:3,3:2,11:1,46:1
     return;
 }
 
 std::istream &operator>>(std::istream &stream, data_structure &structure) {
-    // Stream in a string, empty the current structure and create a new structure with the new streamed in string.
     std::string input_string;
     char buffer[4096];
     while(stream.read(buffer,sizeof(buffer))){
@@ -160,8 +151,6 @@ std::istream &operator>>(std::istream &stream, data_structure &structure) {
 }
 
 std::ostream &operator<<(std::ostream &stream, const data_structure &structure) {
-    // Stream out the data structure
-    // Output in this format "<integer>:<frequency>,<integer>:<frequency>,<integer>:<frequency>"
     data_structure::node* find = structure.head->next;
     while(find){
         stream << std::to_string(find->value) << ":" << std::to_string(find->count);
